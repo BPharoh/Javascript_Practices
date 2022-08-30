@@ -11,7 +11,7 @@ works with negative numbers
  * @param {number} b
  */
 function sum(a, b) {
-    return a + b;
+    return (a+b);
     //console.log("HELLO")
 }
 

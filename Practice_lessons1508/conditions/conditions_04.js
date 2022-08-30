@@ -10,4 +10,12 @@ Implements evenOrOdd() for odd numbers
 /**
  * @param {string} number
  */
-function evenOrOdd(number) {}
+function evenOrOdd(number) {
+    if (Number.parseInt(number % 2 ) === 0) { 
+    return 'even';
+ }  
+    return 'odd';
+}
+
+console.log(evenOrOdd(7));
+console.log(evenOrOdd(8));
