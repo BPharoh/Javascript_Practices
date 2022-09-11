@@ -6,9 +6,10 @@ The function triple receives a parameter and returns the result of multiplying i
 **/
 
 
-function triple () {
+// function triple () {
+    const triple = (a) => (a*3);
 
-}
+// }
 
 // (optional) Sample usage
 console.log(triple(2));

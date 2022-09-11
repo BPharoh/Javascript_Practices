@@ -10,8 +10,9 @@ Check the sample usage to see the expected result.
  * @param {number} a
  * @param {number} b
  */
-function sum() {
-
+function sum(a = 0,b = 0) {
+    return a + b;
+    
 }
 
 // Sample usage - do not modify

@@ -6,9 +6,9 @@ The function triple receives a parameter and returns the result of multiplying i
 **/
 
 
-function sum(){
-
-}
+//function sum(){
+const sum = (a, b) => ([(a*3), (b*3)]);
+// }
 
 // (optional) Sample usage
 console.log(sum(2, 4));

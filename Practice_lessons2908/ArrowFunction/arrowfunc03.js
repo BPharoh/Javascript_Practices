@@ -8,9 +8,10 @@ Rewrite it as an arrow function.
 /**
  * @param {number} value
  */
-function triple() {
+// function triple() {
+    const triple = (value = 0) => (value * 3);
 
-}
+// 
 
 // Sample usage - do not change
 console.log(triple(2)); // 6

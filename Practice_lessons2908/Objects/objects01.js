@@ -11,8 +11,15 @@ Give these properties any value you'd like, as long as it fits the expected retu
 **/
 
 function getProductDetails() {
+        const furniture = { 
+        id: 25,
+        title: 'table',
+        inStock: 'true',   
+    }; 
 
-}
+    return furniture;
+
+};
 
 // Sample usage - do not modify
 console.log(getProductDetails()); // the object you define
