@@ -13,11 +13,14 @@ Call that function 2 times with different number pairs, and log the output to ma
  */
 
 function greaterNum(num1, num2) {
-    If ( num1 > num2 )  {
-    return (`${num1} is greater than ${num2}`);
-} 
+    if (num1>num2){
+        return (`${num1} is greater than ${num2}`);
+    } else {
+        return (`${num2} is greater than ${num1}`);
+    }
 
-}
+};
 
 
 console.log(greaterNum(5, 10));
+console.log(greaterNum(9, 7));

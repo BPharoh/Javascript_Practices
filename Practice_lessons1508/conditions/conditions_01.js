@@ -6,7 +6,7 @@ and false in all other scenarios.
  * @param {number} age
  */
 function canVote(age) {
-    if (age > 18) {
+    if (age >= 18) {
         return true;
     } else {
         return false;
