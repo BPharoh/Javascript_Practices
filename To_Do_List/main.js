@@ -1,44 +1,67 @@
-const task = document.querySelector("form input");
-const list = document.querySelector("ul");
-const form = document.querySelector("form");
 
-window.onload = loadTasks;
+window.onload = getTasks;
 
 
-function loadTasks() {
+document.querySelector("form").addEventListener("submit", e => {
+  e.preventDefault();
+  insertTask();
+});
+
+function getTasks() {
   if (localStorage.getItem("tasks") == null) return;
+
+ 
   let tasks = Array.from(JSON.parse(localStorage.getItem("tasks")));
-  tasks.forEach(task => { 
+
+ 
+  tasks.forEach(task => {
+    const list = document.querySelector("ul");
     const li = document.createElement("li");
-    li.innerHTML = `<input type="checkbox" onclick="taskComplete(this)" class="check" ${task.completed ? 'checked' : ''}>
-          <input type="text" value="${task.task}" class="task ${task.completed ? 'completed' : ''}" onfocus="getCurrentTask(this)" onblur="editTask(this)">
-          <i class="fa fa-trash" onclick="removeTask(this)"></i>`;
+    li.innerHTML = `<input type="checkbox" onclick="finshedTask(this)" class="check" ${task.completed ? 'checked' : ''}>
+          <input type="text" value="${task.task}" class="task ${task.completed ? 'completed' : ''}" onfocus="getCurrentTask(this)" onblur="changeTask(this)">
+          <i class="fa fa-trash" onclick="deleteTask(this)"></i>`;
     list.insertBefore(li, list.children[0]);
   });
 }
 
-function addTask() {
-  
-  // return if task is empty
+function insertTask() {
+  const task = document.querySelector("form input");
+  const list = document.querySelector("ul");
+
   if (task.value === "") {
-    alert("Empty task not allowed please");
+    alert("Please add some task!");
     return false;
   }
 
-  // add task to local storage
+  if (document.querySelector(`input[value="${task.value}"]`)) {
+    alert("Task already exist!");
+    return false;
+  }
+
+ 
   localStorage.setItem("tasks", JSON.stringify([...JSON.parse(localStorage.getItem("tasks") || "[]"), { task: task.value, completed: false }]));
 
-  // create list item, add innerHTML and append to ul
   const li = document.createElement("li");
-  li.innerHTML = `<input type="checkbox" onclick="taskComplete(this)" class="check">
-      <input type="text" value="${task.value}" class="task" onfocus="getCurrentTask(this)" onblur="editTask(this)">
-      <i class="fa fa-trash" onclick="removeTask(this)"></i>`;
+  li.innerHTML = `<input type="checkbox" onclick="finshedTask(this)" class="check">
+      <input type="text" value="${task.value}" class="task" onfocus="getCurrentTask(this)" onblur="changeTask(this)">
+      <i class="fa fa-trash" onclick="deleteTask(this)"></i>`;
   list.insertBefore(li, list.children[0]);
-  // clear input
+  
   task.value = "";
 }
 
-function removeTask(event) {
+function finshedTask(event) {
+  let tasks = Array.from(JSON.parse(localStorage.getItem("tasks")));
+  tasks.forEach(task => {
+    if (task.task === event.nextElementSibling.value) {
+      task.completed = !task.completed;
+    }
+  });
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+  event.nextElementSibling.classList.toggle("completed");
+}
+
+function deleteTask(event) {
   let tasks = Array.from(JSON.parse(localStorage.getItem("tasks")));
   tasks.forEach(task => {
     if (task.task === event.parentNode.children[1].value) {
@@ -51,42 +74,36 @@ function removeTask(event) {
 }
 
 
-// let  currentTask = null;
+let currentTask = null;
 
-// function getCurrentTask(event) {
-//   currentTask = event.value;
-// }
 
-// edit the task and update local storage
-function editTask(event) {
+function getCurrentTask(event) {
+  currentTask = event.value;
+}
+
+
+function changeTask(event) {
   let tasks = Array.from(JSON.parse(localStorage.getItem("tasks")));
-  // check if task is empty
+ 
   if (event.value === "") {
     alert("Task is empty!");
     event.value = currentTask;
     return;
   }
-  // task already exist
-//   tasks.forEach(task => {
-//     if (task.task === event.value) {
-//       alert("Task already exist!");
-//       event.value = currentTask;
-//       return;
-//     }
-//   });
-
-  // update task
+  
+  tasks.forEach(task => {
+    if (task.task === event.value) {
+      alert("Task already exist!");
+      event.value = currentTask;
+      return;
+    }
+  });
+  
   tasks.forEach(task => {
     if (task.task === currentTask) {
       task.task = event.value;
     }
   });
-  // update local storage
+ 
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
-
-
-form.addEventListener("submit", addTask);
-
-
-
